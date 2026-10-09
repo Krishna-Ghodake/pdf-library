@@ -24,7 +24,7 @@ export const DOCUMENTS: DocumentItem[] = [
     downloadFilename: 'Java-and-WT.pdf',
     badge: 'Java and WT',
     category: 'Practical Slips',
-    pageCountText: '41 Pages • PDF',
+    pageCountText: '43 Pages • PDF',
     iconType: 'java',
     accentColor: '#2563eb',
     highlights: [
@@ -44,7 +44,7 @@ export const DOCUMENTS: DocumentItem[] = [
     downloadFilename: 'F-Java-WT.pdf',
     badge: 'F Java WT',
     category: 'Exam Solutions',
-    pageCountText: '30 Pages • PDF',
+    pageCountText: '32 Pages • PDF',
     iconType: 'web',
     accentColor: '#059669',
     highlights: [

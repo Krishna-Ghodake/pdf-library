@@ -12,15 +12,15 @@ Both of your actual PDF files are integrated directly into the `public/pdfs/` di
 
 | Document | Location | File Name | Details |
 | :--- | :--- | :--- | :--- |
-| **PDF 1 — Java and WT** | `public/pdfs/` | `java-wt.pdf` | **41 Pages** • Slips 1 through 29 (Java & Web Technology) |
-| **PDF 2 — F Java WT** | `public/pdfs/` | `f-java-wt.pdf` | **30 Pages** • Practical Exam Solutions & Ubuntu execution steps |
+| **PDF 1 — Java and WT** | `public/pdfs/` | `java-wt.pdf` | **43 Pages** • Slips 1 through 29 + Slip 12 (Java & Web Technology) |
+| **PDF 2 — F Java WT** | `public/pdfs/` | `f-java-wt.pdf` | **32 Pages** • Practical Exam Solutions + Slip 12 & Ubuntu steps |
 
 ```text
 Pdf viewer/
 ├── public/
 │   ├── pdfs/
-│   │   ├── java-wt.pdf              <-- Java and WT (41 Pages)
-│   │   └── f-java-wt.pdf            <-- F Java WT (30 Pages)
+│   │   ├── java-wt.pdf              <-- Java and WT (43 Pages)
+│   │   └── f-java-wt.pdf            <-- F Java WT (32 Pages)
 │   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
 │   └── favicon.ico
 ├── src/
