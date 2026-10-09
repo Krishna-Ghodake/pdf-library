@@ -1,36 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PDF Library — Fast, Minimalist In-Browser Document Viewer
 
-## Getting Started
+A production-ready, responsive PDF document library built with **Next.js (App Router)**, **TypeScript**, and **PDF.js (`pdfjs-dist`)**, designed specifically for fast reference during practical lab exams.
 
-First, run the development server:
+Hosted on Vercel with a single public URL (e.g. `your-pdf-library.vercel.app`), this application enables users to view multi-page PDFs directly in the browser, zoom in/out, fit to width, search with highlighted results, select and copy text via the native PDF.js text layer, jump to any page, and download the original PDF files.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 📁 Where to Place Your Actual PDF Files
+
+Save your two real PDF files in the `public/pdfs/` directory with these exact file names:
+
+| Document | Location | Expected File Name |
+| :--- | :--- | :--- |
+| **PDF 1 — Java Practical Programs** | `public/pdfs/` | `java-practical.pdf` |
+| **PDF 2 — Web Technology Practical Programs** | `public/pdfs/` | `web-technology.pdf` |
+
+```text
+Pdf viewer/
+├── public/
+│   ├── pdfs/
+│   │   ├── java-practical.pdf       <-- Replace with your Java PDF
+│   │   └── web-technology.pdf       <-- Replace with your Web Tech PDF
+│   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
+│   └── favicon.ico
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── not-found.tsx
+│   │   ├── page.tsx                 <-- Homepage with cards
+│   │   └── viewer/[id]/page.tsx     <-- Fullscreen reader
+│   ├── components/
+│   │   ├── DocumentCard.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── PdfPage.tsx              <-- Canvas + TextLayer renderer
+│   │   └── PdfViewer.tsx            <-- Toolbar, Zoom, Search, Navigation
+│   └── config/
+│       └── documents.ts             <-- Titles, descriptions & metadata
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **Note:** The project currently includes two verified, multi-page sample PDFs with selectable code so you can run, test, and preview the full viewer immediately. Once you are ready, replace them with your actual files.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✏️ How to Change Document Titles and Descriptions
 
-## Learn More
+All document titles, subtitles, descriptions, badges, tags, and download filenames are centrally defined in **`src/config/documents.ts`**.
 
-To learn more about Next.js, take a look at the following resources:
+To customize how documents are displayed:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Open [`src/config/documents.ts`](file:///Users/krishna_ghodake_018/Development/Pdf%20viewer/src/config/documents.ts).
+2. Edit any of the fields:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+export const DOCUMENTS: DocumentItem[] = [
+  {
+    id: 'java-practical',
+    title: 'Java Practical Programs',                     // Display Title
+    subtitle: 'Core Java, Concurrency & Networking Lab',   // Subtitle
+    description: 'Complete lab manual covering...',       // Description
+    filePath: '/pdfs/java-practical.pdf',                // Path in /public
+    downloadFilename: 'Java-Practical-Programs.pdf',     // Download filename
+    badge: 'Core Java',                                   // Badge text
+    category: 'Backend & Systems',
+    pageCountText: '5 Pages • PDF',
+    // ...
+  },
+  // Repeat for 'web-technology' or add new documents
+];
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Running the Website Locally
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. Install dependencies:
+```bash
+npm install
+```
+
+### 2. Start the development server:
+```bash
+npm run dev
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+### 3. Build and test the production bundle:
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 🛠 Features Included
+
+- **Native PDF.js Rendering:** Uses `pdfjs-dist` to render crisp vector graphics using HTML5 Canvas with device pixel ratio scaling for Retina and 4K displays.
+- **Selectable & Copyable Text:** Text layer positioned over each page enables highlighting and copying actual PDF text directly to clipboard (`Cmd+C` / `Ctrl+C`).
+- **Interactive Find/Search:** Search across all pages with total match counter (`Match X of Y`), previous/next navigation buttons, and yellow/orange highlights.
+- **Zoom & Fit-to-Width:** Zoom In, Zoom Out, Fit-to-Width, and Reset Zoom controls.
+- **Direct Page Jump:** Smooth vertical continuous scrolling with a direct page jump number input (`Page [ 3 ] of 5`) and next/previous page buttons.
+- **Quick Document Switcher:** Switch between documents directly from the viewer toolbar.
+- **Direct PDF Downloads:** Clean downloads with custom filenames (e.g. `Java-Practical-Programs.pdf`) from both homepage and viewer.
+- **Full Screen Reading Mode:** Distraction-free exam reading mode.
+- **Keyboard Shortcuts:**
+  - `ArrowLeft` / `ArrowRight`: Previous / Next Page
+  - `+` / `-`: Zoom In / Zoom Out
+  - `0`: Reset Zoom
+  - `Cmd+F` or `Ctrl+F`: Open Search
+  - `Esc`: Close Search / Exit Fullscreen
+- **Graceful Error Handling:** If a PDF file is missing, displays a helpful card explaining where to place the file rather than a blank or broken page.
+
+---
+
+## 🚢 Pushing to GitHub
+
+To put your project on GitHub:
+
+```bash
+# 1. Initialize git (if not already done)
+git init
+
+# 2. Add all files
+git add .
+
+# 3. Commit
+git commit -m "Complete PDF Library website ready for Vercel deployment"
+
+# 4. Create a repository on GitHub (e.g. https://github.com/your-username/pdf-library)
+
+# 5. Link and push to GitHub:
+git branch -M main
+git remote add origin https://github.com/your-username/pdf-library.git
+git push -u origin main
+```
+
+---
+
+## 🌐 Step-by-Step Vercel Deployment
+
+Once pushed to GitHub, deploying to Vercel takes less than 2 minutes and runs 24/7 independently of your computer:
+
+1. Go to **[https://vercel.com](https://vercel.com)** and sign in with GitHub.
+2. Click **"Add New..."** → **"Project"**.
+3. Select your GitHub repository (`pdf-library`).
+4. Keep the default settings:
+   - **Framework Preset:** Next.js (automatically detected)
+   - **Root Directory:** `./`
+   - **Build Command:** `next build`
+   - **Output Directory:** `.next`
+5. Click **"Deploy"**.
+6. In ~45 seconds, your site will be live at a public URL:
+   `https://<your-project-name>.vercel.app`
+
+---
+
+## ✅ Deployment & Verification Checklist
+
+- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and cards for both documents.
+- [x] **Document 1 (Java):** Opens `/viewer/java-practical`, renders pages, supports zoom, text selection, and search.
+- [x] **Document 2 (Web Tech):** Opens `/viewer/web-technology`, renders pages, supports zoom, text selection, and search.
+- [x] **Text Selection:** Users can drag-select text on any page and copy it with `Cmd+C` / `Ctrl+C`.
+- [x] **Search Works:** Search toolbar displays match count and highlights matching terms on the document.
+- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of the original `.pdf` file.
+- [x] **Page Jump:** Typing a page number and pressing Enter scrolls directly to that page.
+- [x] **Document Switcher:** Dropdown in reader header switches between documents instantly.
+- [x] **Responsive Mobile Layout:** Clean layout on phones, tablets, and desktops.
+- [x] **Missing PDF Resilience:** Shows informative guide card if a file cannot be loaded.

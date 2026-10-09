@@ -1,69 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Metadata } from 'next';
+import { DOCUMENTS } from '@/config/documents';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import DocumentCard from '@/components/DocumentCard';
+import { FileText, FolderCheck, Sparkles, Terminal } from 'lucide-react';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'PDF Library — Practical Reference Documents',
+  description:
+    'Fast, minimalist PDF library for Java Practical Programs and Web Technology Practical Programs. View, search, zoom, and download PDF lab manuals directly in your browser.',
+};
+
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+
+      <main style={{ flex: '1 0 auto' }}>
+        <section className="container hero-section">
+          <h1 className="hero-title">PDF Library</h1>
+          <p className="hero-subtitle">Your practical reference documents, all in one place.</p>
+        </section>
+
+        <section className="container">
+          {/* Responsive Grid of Document Cards */}
+          <div className="docs-grid">
+            {DOCUMENTS.map((doc) => (
+              <DocumentCard key={doc.id} doc={doc} />
+            ))}
+          </div>
+
+          {/* Quick PDF Placement & Configuration Guide Card */}
+          <div className="info-box">
+            <div className="info-box-header">
+              <FolderCheck size={18} color="#2563eb" />
+              <h3 className="info-box-title">Document Setup & Customization Guide</h3>
+            </div>
+            <div className="info-box-body">
+              <p style={{ marginBottom: '0.6rem' }}>
+                Both documents are served locally from your project repository. To replace the
+                current sample documents with your actual lab PDFs:
+              </p>
+              <ul style={{ paddingLeft: '1.25rem', marginBottom: '0.75rem' }}>
+                <li style={{ marginBottom: '0.35rem' }}>
+                  <strong>PDF 1 (Java):</strong> Save your PDF file as{' '}
+                  <span className="info-code">public/pdfs/java-practical.pdf</span>
+                </li>
+                <li style={{ marginBottom: '0.35rem' }}>
+                  <strong>PDF 2 (Web Tech):</strong> Save your PDF file as{' '}
+                  <span className="info-code">public/pdfs/web-technology.pdf</span>
+                </li>
+              </ul>
+              <p>
+                To customize document titles, descriptions, badges, or tags, simply edit{' '}
+                <span className="info-code">src/config/documents.ts</span>.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 }
