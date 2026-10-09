@@ -34,25 +34,24 @@ export default function HomePage() {
           <div className="info-box">
             <div className="info-box-header">
               <FolderCheck size={18} color="#2563eb" />
-              <h3 className="info-box-title">Document Setup & Customization Guide</h3>
+              <h3 className="info-box-title">Active PDF Documents & File Management</h3>
             </div>
             <div className="info-box-body">
               <p style={{ marginBottom: '0.6rem' }}>
-                Both documents are served locally from your project repository. To replace the
-                current sample documents with your actual lab PDFs:
+                Both actual practical documents are installed and ready for full in-browser viewing, searching, and downloading:
               </p>
               <ul style={{ paddingLeft: '1.25rem', marginBottom: '0.75rem' }}>
                 <li style={{ marginBottom: '0.35rem' }}>
-                  <strong>PDF 1 (Java):</strong> Save your PDF file as{' '}
-                  <span className="info-code">public/pdfs/java-practical.pdf</span>
+                  <strong>PDF 1 — Java and WT (41 Pages):</strong> Stored at{' '}
+                  <span className="info-code">public/pdfs/java-wt.pdf</span> (covering Slips 1 through 29).
                 </li>
                 <li style={{ marginBottom: '0.35rem' }}>
-                  <strong>PDF 2 (Web Tech):</strong> Save your PDF file as{' '}
-                  <span className="info-code">public/pdfs/web-technology.pdf</span>
+                  <strong>PDF 2 — F Java WT (30 Pages):</strong> Stored at{' '}
+                  <span className="info-code">public/pdfs/f-java-wt.pdf</span> (covering Exam Solutions with Ubuntu steps).
                 </li>
               </ul>
               <p>
-                To customize document titles, descriptions, badges, or tags, simply edit{' '}
+                To customize document titles, descriptions, badges, or tags at any time, edit{' '}
                 <span className="info-code">src/config/documents.ts</span>.
               </p>
             </div>

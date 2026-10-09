@@ -15,47 +15,50 @@ export interface DocumentItem {
 
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'java-practical',
-    title: 'Java Practical Programs',
-    subtitle: 'Core Java, Concurrency & Networking Lab Manual',
+    id: 'java-wt',
+    title: 'Java and WT',
+    subtitle: 'Practical Slips 1 to 29 • Java & Web Technology Programs',
     description:
-      'Complete lab manual and reference implementations covering multithreading synchronization, client-server socket communication, JDBC database transactions, Collections framework, and Stream API pipelines.',
-    filePath: '/pdfs/java-practical.pdf',
-    downloadFilename: 'Java-Practical-Programs.pdf',
-    badge: 'Core Java',
-    category: 'Backend & Systems',
-    pageCountText: '5 Pages • PDF',
+      'Complete lab practical slips manual containing Java programs (Arrays, Armstrong numbers, File I/O with reverse/case conversion, OOP, Inheritance, Interfaces) and Web Technology exercises (HTML5/CSS3 Registration Forms, Image Gallery with hover, DOM manipulation, Arrow functions, and Node.js fs/path modules).',
+    filePath: '/pdfs/java-wt.pdf',
+    downloadFilename: 'Java-and-WT.pdf',
+    badge: 'Java and WT',
+    category: 'Practical Slips',
+    pageCountText: '41 Pages • PDF',
     iconType: 'java',
-    accentColor: '#3b82f6',
+    accentColor: '#2563eb',
     highlights: [
-      'Producer-Consumer Multithreading',
-      'TCP/IP Echo Socket Server',
-      'JDBC Database CRUD Operations',
-      'Stream API & Lambda Expressions',
+      'Slips 1 to 29 Practical Code',
+      'Java File Handling & Inheritance',
+      'HTML5/CSS3 Registration Forms',
+      'Node.js Path & File Operations',
     ],
   },
   {
-    id: 'web-technology',
-    title: 'Web Technology Practical Programs',
-    subtitle: 'HTML5, Modern CSS & Asynchronous JavaScript',
+    id: 'f-java-wt',
+    title: 'F Java WT',
+    subtitle: 'Practical Exam Solutions & Ubuntu Step-by-Step Guide',
     description:
-      'Comprehensive practical lab guide demonstrating responsive multi-column layouts using CSS Grid and Flexbox, real-time client-side form validation, RESTful API data fetching with error handling, and persistent storage caching.',
-    filePath: '/pdfs/web-technology.pdf',
-    downloadFilename: 'Web-Technology-Practical-Programs.pdf',
-    badge: 'Web Tech',
-    category: 'Frontend & Full-Stack',
-    pageCountText: '5 Pages • PDF',
+      'Detailed exam solutions with Ubuntu terminal commands (gedit, javac, java, firefox, node) for Slips 5 through 29 covering Java text file reversal, Account/Driver classes, CSS Grid responsive image galleries, JavaScript arrow functions, async/await login simulation, and Node.js file management.',
+    filePath: '/pdfs/f-java-wt.pdf',
+    downloadFilename: 'F-Java-WT.pdf',
+    badge: 'F Java WT',
+    category: 'Exam Solutions',
+    pageCountText: '30 Pages • PDF',
     iconType: 'web',
-    accentColor: '#0ea5e9',
+    accentColor: '#059669',
     highlights: [
-      'Fluid CSS Grid & Flexbox Layouts',
-      'Event-Driven Form Validation',
-      'Async Fetch API with Retry Logic',
-      'LocalStorage Session Caching',
+      'Ubuntu Execution Commands',
+      'Slips 5 to 29 Full Solutions',
+      'CSS Grid & DOM Manipulations',
+      'Async/Await & Node.js Scripts',
     ],
   },
 ];
 
 export function getDocumentById(id: string): DocumentItem | undefined {
+  // Support both new IDs and original routes for backwards compatibility
+  if (id === 'java-practical') return DOCUMENTS[0];
+  if (id === 'web-technology') return DOCUMENTS[1];
   return DOCUMENTS.find((doc) => doc.id === id);
 }

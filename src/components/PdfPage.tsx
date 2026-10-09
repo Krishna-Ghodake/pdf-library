@@ -28,30 +28,60 @@ export const PdfPage: React.FC<PdfPageProps> = ({
   const textLayerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<{ width: number; height: number } | null>(null);
   const [isRendered, setIsRendered] = useState(false);
+  // Pages 1 and 2 start as near viewport by default so first screen loads instantly
+  const [isNearViewport, setIsNearViewport] = useState<boolean>(pageNum <= 2);
   const renderTaskRef = useRef<any>(null);
 
-  // IntersectionObserver to signal visibility for page tracking & rendering
+  // If this page is the active search match, force it to render immediately
+  useEffect(() => {
+    if (activeMatchPage === pageNum) {
+      setIsNearViewport(true);
+    }
+  }, [activeMatchPage, pageNum]);
+
+  // IntersectionObserver for lazy rendering (triggers 1200px before entering viewport)
+  // and for tracking the active current page when reading
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
+    // Observer 1: Near viewport check (1200px lookahead for seamless lazy rendering)
+    const lazyObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+          if (entry.isIntersecting) {
+            setIsNearViewport(true);
+          }
+        });
+      },
+      { rootMargin: '1200px 0px 1200px 0px' }
+    );
+
+    // Observer 2: Currently visible page tracking for the toolbar page counter
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
             onVisible(pageNum);
           }
         });
       },
-      { threshold: [0.2, 0.5, 0.8] }
+      { threshold: [0.35, 0.7] }
     );
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    lazyObserver.observe(el);
+    visibilityObserver.observe(el);
+
+    return () => {
+      lazyObserver.disconnect();
+      visibilityObserver.disconnect();
+    };
   }, [pageNum, onVisible]);
 
-  // Page Rendering (Canvas + TextLayer)
+  // Page Rendering (Canvas + TextLayer) - only runs when page is near or in viewport
   useEffect(() => {
+    if (!isNearViewport) return;
+
     let isCancelled = false;
 
     async function renderPage() {
@@ -64,12 +94,12 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         const viewport = page.getViewport({ scale });
         setDimensions({ width: viewport.width, height: viewport.height });
 
-        // Cancel previous render if any
+        // Cancel previous render task if active (e.g., during zoom changes)
         if (renderTaskRef.current) {
           try {
             renderTaskRef.current.cancel();
           } catch {
-            // ignore cancel error
+            // ignore cancel exception
           }
         }
 
@@ -97,7 +127,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
 
         if (isCancelled) return;
 
-        // Render Text Layer
+        // Render Text Layer for text selection & copying
         const textLayerDiv = textLayerRef.current;
         textLayerDiv.innerHTML = '';
         textLayerDiv.style.width = `${Math.floor(viewport.width)}px`;
@@ -115,7 +145,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         await textLayer.render();
         setIsRendered(true);
 
-        // Apply search highlights if search query is active
+        // Apply search highlights if search is active
         applyHighlights();
       } catch (err: any) {
         if (err?.name !== 'RenderingCancelledException') {
@@ -136,7 +166,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         }
       }
     };
-  }, [pdfDoc, pageNum, scale, pdfjsLib]);
+  }, [pdfDoc, pageNum, scale, pdfjsLib, isNearViewport]);
 
   // Apply search highlighting inside textLayer spans
   const applyHighlights = () => {
@@ -144,7 +174,6 @@ export const PdfPage: React.FC<PdfPageProps> = ({
     const spans = textLayerRef.current.querySelectorAll('span');
 
     if (!searchQuery || searchQuery.trim().length === 0) {
-      // Clear highlights if query is empty
       spans.forEach((span) => {
         if (span.getAttribute('data-original-text')) {
           span.textContent = span.getAttribute('data-original-text') || '';
@@ -201,19 +230,44 @@ export const PdfPage: React.FC<PdfPageProps> = ({
     }
   }, [searchQuery, activeMatchPage, activeMatchIndexOnPage, isRendered]);
 
+  const defaultWidth = 595.28 * scale;
+  const defaultHeight = 841.89 * scale;
+  const containerWidth = dimensions ? dimensions.width : defaultWidth;
+  const containerHeight = dimensions ? dimensions.height : defaultHeight;
+
   return (
     <div
       ref={containerRef}
       id={`pdf-page-${pageNum}`}
       data-page-num={pageNum}
-      className="pdf-page-wrapper"
+      className={`pdf-page-wrapper ${!isNearViewport ? 'placeholder' : ''}`}
       style={{
-        width: dimensions ? dimensions.width : 595 * scale,
-        minHeight: dimensions ? dimensions.height : 842 * scale,
+        width: containerWidth,
+        minHeight: containerHeight,
+        height: containerHeight,
       }}
     >
-      <canvas ref={canvasRef} className="pdf-canvas" />
-      <div ref={textLayerRef} className="textLayer" />
+      {isNearViewport ? (
+        <>
+          <canvas ref={canvasRef} className="pdf-canvas" />
+          <div ref={textLayerRef} className="textLayer" />
+        </>
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#ffffff',
+            color: '#94a3b8',
+            fontSize: '0.85rem',
+          }}
+        >
+          Page {pageNum}
+        </div>
+      )}
       <div className="pdf-page-number-tag">Page {pageNum}</div>
     </div>
   );

@@ -6,21 +6,21 @@ Hosted on Vercel with a single public URL (e.g. `your-pdf-library.vercel.app`), 
 
 ---
 
-## 📁 Where to Place Your Actual PDF Files
+## 📁 Installed PDF Documents
 
-Save your two real PDF files in the `public/pdfs/` directory with these exact file names:
+Both of your actual PDF files are integrated directly into the `public/pdfs/` directory:
 
-| Document | Location | Expected File Name |
-| :--- | :--- | :--- |
-| **PDF 1 — Java Practical Programs** | `public/pdfs/` | `java-practical.pdf` |
-| **PDF 2 — Web Technology Practical Programs** | `public/pdfs/` | `web-technology.pdf` |
+| Document | Location | File Name | Details |
+| :--- | :--- | :--- | :--- |
+| **PDF 1 — Java and WT** | `public/pdfs/` | `java-wt.pdf` | **41 Pages** • Slips 1 through 29 (Java & Web Technology) |
+| **PDF 2 — F Java WT** | `public/pdfs/` | `f-java-wt.pdf` | **30 Pages** • Practical Exam Solutions & Ubuntu execution steps |
 
 ```text
 Pdf viewer/
 ├── public/
 │   ├── pdfs/
-│   │   ├── java-practical.pdf       <-- Replace with your Java PDF
-│   │   └── web-technology.pdf       <-- Replace with your Web Tech PDF
+│   │   ├── java-wt.pdf              <-- Java and WT (41 Pages)
+│   │   └── f-java-wt.pdf            <-- F Java WT (30 Pages)
 │   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
 │   └── favicon.ico
 ├── src/
@@ -34,7 +34,7 @@ Pdf viewer/
 │   │   ├── DocumentCard.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx
-│   │   ├── PdfPage.tsx              <-- Canvas + TextLayer renderer
+│   │   ├── PdfPage.tsx              <-- Lazy Canvas + TextLayer renderer
 │   │   └── PdfViewer.tsx            <-- Toolbar, Zoom, Search, Navigation
 │   └── config/
 │       └── documents.ts             <-- Titles, descriptions & metadata
@@ -42,7 +42,7 @@ Pdf viewer/
 └── README.md
 ```
 
-> **Note:** The project currently includes two verified, multi-page sample PDFs with selectable code so you can run, test, and preview the full viewer immediately. Once you are ready, replace them with your actual files.
+> **Note:** Both PDFs are fully installed and configured. Backward-compatible aliases (`java-practical.pdf` and `web-technology.pdf`) are also preserved.
 
 ---
 

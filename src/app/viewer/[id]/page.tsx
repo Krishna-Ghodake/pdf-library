@@ -8,9 +8,12 @@ interface ViewerPageProps {
 }
 
 export function generateStaticParams() {
-  return DOCUMENTS.map((doc) => ({
-    id: doc.id,
-  }));
+  return [
+    { id: 'java-wt' },
+    { id: 'f-java-wt' },
+    { id: 'java-practical' },
+    { id: 'web-technology' },
+  ];
 }
 
 export async function generateMetadata({ params }: ViewerPageProps): Promise<Metadata> {
