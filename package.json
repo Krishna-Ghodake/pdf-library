@@ -23,6 +23,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.0",
     "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^25.13.0",
     "typescript": "^5"
   }
 }

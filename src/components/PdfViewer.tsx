@@ -93,9 +93,9 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
         setLoadingMsg(`Loading "${documentItem.title}"...`);
         const loadingTask = lib.getDocument({
           url: documentItem.filePath,
-          cMapUrl: 'https://unpkg.com/pdfjs-dist@4.10.38/cmaps/',
+          cMapUrl: '/cmaps/',
           cMapPacked: true,
-          standardFontDataUrl: 'https://unpkg.com/pdfjs-dist@4.10.38/standard_fonts/',
+          standardFontDataUrl: '/standard_fonts/',
         });
 
         const doc = await loadingTask.promise;

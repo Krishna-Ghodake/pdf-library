@@ -142,15 +142,23 @@
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-/* Document Title in Toolbar */
-.toolbar-doc-title {
-  font-weight: 600;
-  font-size: 0.95rem;
+/* Quick Document Switcher Select */
+.doc-switcher-select {
+  height: 34px;
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--input-bg, #ffffff);
   color: var(--text-primary, #0f172a);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 260px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  max-width: 220px;
+}
+
+.doc-switcher-select:focus {
+  border-color: var(--primary-color, #2563eb);
 }
 
 .toolbar-doc-badge {
@@ -162,25 +170,6 @@
   color: #1d4ed8;
   border: 1px solid #dbeafe;
   white-space: nowrap;
-}
-
-/* Quick Document Switcher Select */
-.doc-switcher-select {
-  height: 34px;
-  padding: 0 0.5rem;
-  border-radius: 6px;
-  border: 1px solid var(--border-color, #e2e8f0);
-  background: var(--input-bg, #ffffff);
-  color: var(--text-primary, #0f172a);
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  outline: none;
-  max-width: 220px;
-}
-
-.doc-switcher-select:focus {
-  border-color: var(--primary-color, #2563eb);
 }
 
 /* Search Bar (Floating Sub-Toolbar) */
@@ -261,16 +250,18 @@
   position: relative;
 }
 
-/* Page Card Container */
+/* Page Card Container — Exactly sized to match viewport */
 .pdf-page-wrapper {
+  --scale-factor: 1;
   position: relative;
-  margin-bottom: 1.75rem;
+  margin: 0 auto 1.75rem auto;
   background: #ffffff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  transition: box-shadow 0.2s ease;
   user-select: text;
+  -webkit-user-select: text;
+  box-sizing: border-box;
 }
 
 .pdf-page-wrapper:hover {
@@ -287,22 +278,31 @@
   pointer-events: none;
 }
 
-/* Canvas Display */
+/* Canvas Display — Absolute position locked to wrapper, pointer-events none */
 .pdf-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: block;
+  pointer-events: none !important;
+  z-index: 1;
   border-radius: 3px;
-  max-width: 100%;
-  height: auto;
 }
 
-/* PDF.js Text Layer */
+/* PDF.js Text Layer — Overlaid 1:1 directly above canvas for pixel-perfect text selection */
 .textLayer {
+  --scale-factor: 1;
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   text-align: initial;
   overflow: clip;
   opacity: 1;
-  line-height: 1;
+  line-height: 1 !important;
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   text-size-adjust: none;
@@ -311,6 +311,7 @@
   caret-color: #0f172a;
   z-index: 2;
   user-select: text;
+  -webkit-user-select: text;
 }
 
 .textLayer :is(span, br) {
@@ -319,11 +320,32 @@
   white-space: pre;
   cursor: text;
   transform-origin: 0% 0%;
+  line-height: 1 !important;
+  box-sizing: content-box !important;
+}
+
+.textLayer span {
+  user-select: text !important;
+  -webkit-user-select: text !important;
 }
 
 .textLayer ::selection {
-  background: rgba(59, 130, 246, 0.35) !important;
+  background: rgba(37, 99, 235, 0.35) !important;
   color: transparent !important;
+}
+
+.textLayer ::-moz-selection {
+  background: rgba(37, 99, 235, 0.35) !important;
+  color: transparent !important;
+}
+
+.textLayer .endOfContent {
+  display: block;
+  position: absolute;
+  inset: 100% 0 0;
+  z-index: 0;
+  cursor: default;
+  user-select: none;
 }
 
 /* Search Highlights */
@@ -410,7 +432,7 @@
     gap: 0.4rem;
   }
 
-  .toolbar-doc-title {
+  .doc-switcher-select {
     max-width: 140px;
     font-size: 0.85rem;
   }
