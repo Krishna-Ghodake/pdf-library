@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DocumentItem } from '@/config/documents';
-import { Eye, Download, Code2, Globe } from 'lucide-react';
+import { Eye, Download, Code2, Globe, Terminal } from 'lucide-react';
 
 interface DocumentCardProps {
   doc: DocumentItem;
@@ -37,7 +37,13 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({ doc }) => {
       {/* Card Header with Icon & Page Count Badge */}
       <div className="card-top">
         <div className={`card-icon-box ${doc.iconType}`}>
-          {doc.iconType === 'java' ? <Code2 size={26} /> : <Globe size={26} />}
+          {doc.iconType === 'terminal' ? (
+            <Terminal size={26} />
+          ) : doc.iconType === 'java' ? (
+            <Code2 size={26} />
+          ) : (
+            <Globe size={26} />
+          )}
         </div>
         <div className="badge-row">
           <span className="card-badge neutral">{doc.pageCountText || 'PDF'}</span>

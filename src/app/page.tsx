@@ -7,7 +7,7 @@ import DocumentCard from '@/components/DocumentCard';
 export const metadata: Metadata = {
   title: 'PDF Library — Fast Document Viewer',
   description:
-    'Fast, minimalist PDF library for Java and WT practical programs and solutions. View, search, zoom, and download PDF files directly in your browser.',
+    'Fast, minimalist PDF library for Operating Systems practical programs and solutions. View, search, zoom, and download PDF files directly in your browser.',
 };
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
         </section>
 
         <section className="container">
-          {/* Responsive Grid of the Two Document Cards */}
+          {/* Responsive Document Cards */}
           <div className="docs-grid">
             {DOCUMENTS.map((doc) => (
               <DocumentCard key={doc.id} doc={doc} />

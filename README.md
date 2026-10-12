@@ -8,19 +8,18 @@ Hosted on Vercel with a single public URL (e.g. `your-pdf-library.vercel.app`), 
 
 ## 📁 Installed PDF Documents
 
-Both of your actual PDF files are integrated directly into the `public/pdfs/` directory:
+The Operating Systems Practical Slips PDF document is installed in `public/pdfs/`:
 
 | Document | Location | File Name | Details |
 | :--- | :--- | :--- | :--- |
-| **PDF 1 — Java and WT** | `public/pdfs/` | `java-wt.pdf` | **43 Pages** • Slips 1 through 29 + Slip 12 (Java & Web Technology) |
-| **PDF 2 — F Java WT** | `public/pdfs/` | `f-java-wt.pdf` | **32 Pages** • Practical Exam Solutions + Slip 12 & Ubuntu steps |
+| **Operating Systems Practical Slips** | `public/pdfs/` | `os-practical-slips.pdf` | **76 Pages** • Slips 1, 3, 4, 5, 9, 10, 11, 12, 13, 16, 20, 23, 25, 27, 28 (C programs) |
 
 ```text
 Pdf viewer/
 ├── public/
 │   ├── pdfs/
-│   │   ├── java-wt.pdf              <-- Java and WT (43 Pages)
-│   │   └── f-java-wt.pdf            <-- F Java WT (32 Pages)
+│   │   ├── os-practical-slips.pdf   <-- Operating Systems Practical Slips (76 Pages)
+│   │   └── os-practical.pdf         <-- Friendly alias
 │   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
 │   └── favicon.ico
 ├── src/
@@ -28,7 +27,7 @@ Pdf viewer/
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   ├── not-found.tsx
-│   │   ├── page.tsx                 <-- Homepage with cards
+│   │   ├── page.tsx                 <-- Homepage with card
 │   │   └── viewer/[id]/page.tsx     <-- Fullscreen reader
 │   ├── components/
 │   │   ├── DocumentCard.tsx
@@ -42,7 +41,7 @@ Pdf viewer/
 └── README.md
 ```
 
-> **Note:** Both PDFs are fully installed and configured. Backward-compatible aliases (`java-practical.pdf` and `web-technology.pdf`) are also preserved.
+> **Note:** Backward-compatible aliases (`os-practical`) are preserved in routing and documents config.
 
 ---
 
@@ -58,18 +57,17 @@ To customize how documents are displayed:
 ```typescript
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'java-practical',
-    title: 'Java Practical Programs',                     // Display Title
-    subtitle: 'Core Java, Concurrency & Networking Lab',   // Subtitle
+    id: 'os-practical-slips',
+    title: 'Operating Systems Practical Slips',           // Display Title
+    subtitle: 'Final Slips Selection: 1, 3, 4, 5...',     // Subtitle
     description: 'Complete lab manual covering...',       // Description
-    filePath: '/pdfs/java-practical.pdf',                // Path in /public
-    downloadFilename: 'Java-Practical-Programs.pdf',     // Download filename
-    badge: 'Core Java',                                   // Badge text
-    category: 'Backend & Systems',
-    pageCountText: '5 Pages • PDF',
+    filePath: '/pdfs/os-practical-slips.pdf',             // Path in /public
+    downloadFilename: 'OS-Practical-Slips.pdf',           // Download filename
+    badge: 'OS Practical',                                // Badge text
+    category: 'Operating Systems',
+    pageCountText: '76 Pages • PDF',
     // ...
   },
-  // Repeat for 'web-technology' or add new documents
 ];
 ```
 
@@ -160,13 +158,11 @@ Once pushed to GitHub, deploying to Vercel takes less than 2 minutes and runs 24
 
 ## ✅ Deployment & Verification Checklist
 
-- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and cards for both documents.
-- [x] **Document 1 (Java):** Opens `/viewer/java-practical`, renders pages, supports zoom, text selection, and search.
-- [x] **Document 2 (Web Tech):** Opens `/viewer/web-technology`, renders pages, supports zoom, text selection, and search.
+- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and card for the Operating Systems Practical Slips.
+- [x] **Document (OS Slips):** Opens `/viewer/os-practical-slips` (and alias `/viewer/os-practical`), renders 76 pages smoothly, supports zoom, text selection, and search.
 - [x] **Text Selection:** Users can drag-select text on any page and copy it with `Cmd+C` / `Ctrl+C`.
-- [x] **Search Works:** Search toolbar displays match count and highlights matching terms on the document.
-- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of the original `.pdf` file.
+- [x] **Search Works:** Search toolbar indexes all 76 pages, displays match count, and jumps to highlighted matching terms.
+- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of `OS-Practical-Slips.pdf`.
 - [x] **Page Jump:** Typing a page number and pressing Enter scrolls directly to that page.
-- [x] **Document Switcher:** Dropdown in reader header switches between documents instantly.
 - [x] **Responsive Mobile Layout:** Clean layout on phones, tablets, and desktops.
 - [x] **Missing PDF Resilience:** Shows informative guide card if a file cannot be loaded.

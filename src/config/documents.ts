@@ -8,57 +8,36 @@ export interface DocumentItem {
   badge: string;
   category: string;
   pageCountText?: string;
-  iconType: 'java' | 'web';
+  iconType: 'terminal' | 'code' | 'java' | 'web';
   accentColor: string;
   highlights: string[];
 }
 
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'java-wt',
-    title: 'Java and WT',
-    subtitle: 'Practical Slips 1 to 29 • Java & Web Technology Programs',
+    id: 'os-practical-slips',
+    title: 'Operating Systems Practical Slips',
+    subtitle: 'Final Slips Selection: 1, 3, 4, 5, 9, 10, 11, 12, 13, 16, 20, 23, 25, 27, 28',
     description:
-      'Complete lab practical slips manual containing Java programs (Arrays, Armstrong numbers, File I/O with reverse/case conversion, OOP, Inheritance, Interfaces) and Web Technology exercises (HTML5/CSS3 Registration Forms, Image Gallery with hover, DOM manipulation, Arrow functions, and Node.js fs/path modules).',
-    filePath: '/pdfs/java-wt.pdf',
-    downloadFilename: 'Java-and-WT.pdf',
-    badge: 'Java and WT',
-    category: 'Practical Slips',
-    pageCountText: '43 Pages • PDF',
-    iconType: 'java',
+      'Complete Operating Systems (OS) lab manual in C covering Banker\'s Algorithm for Deadlock Avoidance, Custom Shell implementation with count and search commands, Disk Scheduling algorithms (SSTF, SCAN, LOOK), Page Replacement algorithms (FIFO, LRU, MFU), CPU Scheduling algorithms (Non-preemptive SJF, Round Robin, FCFS), and Process Management (fork, wait, orphan process).',
+    filePath: '/pdfs/os-practical-slips.pdf',
+    downloadFilename: 'OS-Practical-Slips.pdf',
+    badge: 'OS Practical',
+    category: 'Operating Systems',
+    pageCountText: '76 Pages • PDF',
+    iconType: 'terminal',
     accentColor: '#2563eb',
     highlights: [
-      'Slips 1 to 29 Practical Code',
-      'Java File Handling & Inheritance',
-      'HTML5/CSS3 Registration Forms',
-      'Node.js Path & File Operations',
-    ],
-  },
-  {
-    id: 'f-java-wt',
-    title: 'F Java WT',
-    subtitle: 'Practical Exam Solutions & Ubuntu Step-by-Step Guide',
-    description:
-      'Detailed exam solutions with Ubuntu terminal commands (gedit, javac, java, firefox, node) for Slips 5 through 29 covering Java text file reversal, Account/Driver classes, CSS Grid responsive image galleries, JavaScript arrow functions, async/await login simulation, and Node.js file management.',
-    filePath: '/pdfs/f-java-wt.pdf',
-    downloadFilename: 'F-Java-WT.pdf',
-    badge: 'F Java WT',
-    category: 'Exam Solutions',
-    pageCountText: '32 Pages • PDF',
-    iconType: 'web',
-    accentColor: '#059669',
-    highlights: [
-      'Ubuntu Execution Commands',
-      'Slips 5 to 29 Full Solutions',
-      'CSS Grid & DOM Manipulations',
-      'Async/Await & Node.js Scripts',
+      'Slips 1, 3, 4, 5, 9, 10, 11, 12, 13, 16, 20, 23, 25, 27, 28',
+      'Banker\'s Deadlock Avoidance Algorithm',
+      'Custom Unix Shell in C (fork, execvp, wait)',
+      'Disk & CPU Scheduling + Page Replacement',
     ],
   },
 ];
 
 export function getDocumentById(id: string): DocumentItem | undefined {
-  // Support both new IDs and original routes for backwards compatibility
-  if (id === 'java-practical') return DOCUMENTS[0];
-  if (id === 'web-technology') return DOCUMENTS[1];
-  return DOCUMENTS.find((doc) => doc.id === id);
+  if (id === 'os-practical' || id === 'os-practical-slips') return DOCUMENTS[0];
+  // Fallback to first document for any route
+  return DOCUMENTS.find((doc) => doc.id === id) || DOCUMENTS[0];
 }

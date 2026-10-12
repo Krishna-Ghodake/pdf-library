@@ -54,8 +54,11 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
   const [currentMatchIndex, setCurrentMatchIndex] = useState<number>(-1);
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  // Fullscreen state
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [basePageSize, setBasePageSize] = useState<{ width: number; height: number }>({
+    width: 612,
+    height: 792,
+  });
 
   const viewerRootRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -104,6 +107,15 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
         setPdfDoc(doc);
         setNumPages(doc.numPages);
         setIsLoading(false);
+
+        // Pre-measure first page dimensions for precise placeholders
+        try {
+          const firstPage = await doc.getPage(1);
+          const vp = firstPage.getViewport({ scale: 1.0 });
+          setBasePageSize({ width: vp.width, height: vp.height });
+        } catch {
+          // keep default
+        }
 
         // Pre-extract text from pages for instant search indexing
         indexDocumentText(doc);
@@ -252,8 +264,8 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
   const handleFitToWidth = () => {
     if (!scrollContainerRef.current) return;
     const containerWidth = scrollContainerRef.current.clientWidth - 48; // padding
-    const standardPageWidth = 595.28; // standard A4 pt
-    const calculatedScale = +(containerWidth / standardPageWidth).toFixed(2);
+    const baseWidth = basePageSize.width || 612;
+    const calculatedScale = +(containerWidth / baseWidth).toFixed(2);
     setScale(Math.max(0.5, Math.min(2.0, calculatedScale)));
   };
 
@@ -358,19 +370,38 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
             <span className="hide-on-mobile">Library</span>
           </Link>
 
-          {/* Quick Switcher Dropdown */}
-          <select
-            className="doc-switcher-select"
-            value={documentItem.id}
-            onChange={(e) => router.push(`/viewer/${e.target.value}`)}
-            aria-label="Switch Document"
-          >
-            {DOCUMENTS.map((doc) => (
-              <option key={doc.id} value={doc.id}>
-                {doc.title}
-              </option>
-            ))}
-          </select>
+          {/* Quick Switcher Dropdown / Document Title */}
+          {DOCUMENTS.length > 1 ? (
+            <select
+              className="doc-switcher-select"
+              value={documentItem.id}
+              onChange={(e) => router.push(`/viewer/${e.target.value}`)}
+              aria-label="Switch Document"
+            >
+              {DOCUMENTS.map((doc) => (
+                <option key={doc.id} value={doc.id}>
+                  {doc.title}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <span
+              className="doc-switcher-title"
+              style={{
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                color: 'var(--text-primary)',
+                padding: '0.2rem 0.5rem',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '280px',
+              }}
+              title={documentItem.title}
+            >
+              {documentItem.title}
+            </span>
+          )}
 
           <span className="toolbar-doc-badge hide-on-mobile">{documentItem.badge}</span>
         </div>
@@ -618,6 +649,7 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
                 pdfDoc={pdfDoc}
                 pageNum={pageNum}
                 scale={scale}
+                basePageSize={basePageSize}
                 searchQuery={searchQuery}
                 activeMatchPage={activeMatch ? activeMatch.pageNum : null}
                 activeMatchIndexOnPage={activeMatch ? activeMatch.matchIndexOnPage : null}

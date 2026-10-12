@@ -9,10 +9,10 @@ interface ViewerPageProps {
 
 export function generateStaticParams() {
   return [
+    { id: 'os-practical-slips' },
+    { id: 'os-practical' },
     { id: 'java-wt' },
     { id: 'f-java-wt' },
-    { id: 'java-practical' },
-    { id: 'web-technology' },
   ];
 }
 

@@ -6,6 +6,7 @@ interface PdfPageProps {
   pdfDoc: any;
   pageNum: number;
   scale: number;
+  basePageSize?: { width: number; height: number };
   searchQuery: string;
   activeMatchPage: number | null;
   activeMatchIndexOnPage: number | null;
@@ -17,6 +18,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
   pdfDoc,
   pageNum,
   scale,
+  basePageSize,
   searchQuery,
   activeMatchPage,
   activeMatchIndexOnPage,
@@ -240,8 +242,8 @@ export const PdfPage: React.FC<PdfPageProps> = ({
     });
   }, [searchQuery, activeMatchPage, activeMatchIndexOnPage, isRendered, renderTextLayer]);
 
-  const defaultWidth = 595.28 * scale;
-  const defaultHeight = 841.89 * scale;
+  const defaultWidth = (basePageSize?.width || 612) * scale;
+  const defaultHeight = (basePageSize?.height || 792) * scale;
   const containerWidth = dimensions ? dimensions.width : defaultWidth;
   const containerHeight = dimensions ? dimensions.height : defaultHeight;
 
