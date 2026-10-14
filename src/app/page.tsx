@@ -7,7 +7,7 @@ import DocumentCard from '@/components/DocumentCard';
 export const metadata: Metadata = {
   title: 'PDF Library — Fast Document Viewer',
   description:
-    'Fast, minimalist PDF library for Operating Systems practical programs and solutions. View, search, zoom, and download PDF files directly in your browser.',
+    'Fast, minimalist PDF library for Data Science practical programs and solutions. View, search, zoom, and download PDF files directly in your browser.',
 };
 
 export default function HomePage() {

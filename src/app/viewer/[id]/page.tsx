@@ -9,10 +9,10 @@ interface ViewerPageProps {
 
 export function generateStaticParams() {
   return [
+    { id: 'data-science-slips' },
+    { id: 'data-science' },
     { id: 'os-practical-slips' },
     { id: 'os-practical' },
-    { id: 'java-wt' },
-    { id: 'f-java-wt' },
   ];
 }
 

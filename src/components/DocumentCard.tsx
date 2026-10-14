@@ -39,7 +39,7 @@ export const DocumentCard: React.FC<DocumentCardProps> = ({ doc }) => {
         <div className={`card-icon-box ${doc.iconType}`}>
           {doc.iconType === 'terminal' ? (
             <Terminal size={26} />
-          ) : doc.iconType === 'java' ? (
+          ) : doc.iconType === 'code' || doc.iconType === 'java' ? (
             <Code2 size={26} />
           ) : (
             <Globe size={26} />

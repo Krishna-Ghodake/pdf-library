@@ -8,18 +8,18 @@ Hosted on Vercel with a single public URL (e.g. `your-pdf-library.vercel.app`), 
 
 ## 📁 Installed PDF Documents
 
-The Operating Systems Practical Slips PDF document is installed in `public/pdfs/`:
+The Data Science Practical Slips PDF document is installed in `public/pdfs/`:
 
 | Document | Location | File Name | Details |
 | :--- | :--- | :--- | :--- |
-| **Operating Systems Practical Slips** | `public/pdfs/` | `os-practical-slips.pdf` | **76 Pages** • Slips 1, 3, 4, 5, 9, 10, 11, 12, 13, 16, 20, 23, 25, 27, 28 (C programs) |
+| **Data Science Practical Slips** | `public/pdfs/` | `data-science-slips.pdf` | **37 Pages** • Slips 4, 5, 6, 7, 11, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25 (Python programs) |
 
 ```text
 Pdf viewer/
 ├── public/
 │   ├── pdfs/
-│   │   ├── os-practical-slips.pdf   <-- Operating Systems Practical Slips (76 Pages)
-│   │   └── os-practical.pdf         <-- Friendly alias
+│   │   ├── data-science-slips.pdf   <-- Data Science Practical Slips (37 Pages)
+│   │   └── data-science.pdf         <-- Friendly alias
 │   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
 │   └── favicon.ico
 ├── src/
@@ -41,7 +41,7 @@ Pdf viewer/
 └── README.md
 ```
 
-> **Note:** Backward-compatible aliases (`os-practical`) are preserved in routing and documents config.
+> **Note:** Backward-compatible aliases (`data-science`, `os-practical-slips`, `os-practical`) are preserved in routing and documents config.
 
 ---
 
@@ -57,15 +57,15 @@ To customize how documents are displayed:
 ```typescript
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'os-practical-slips',
-    title: 'Operating Systems Practical Slips',           // Display Title
-    subtitle: 'Final Slips Selection: 1, 3, 4, 5...',     // Subtitle
+    id: 'data-science-slips',
+    title: 'Data Science Practical Slips',                // Display Title
+    subtitle: 'Python Lab Programs • Slips 4, 5, 6...',    // Subtitle
     description: 'Complete lab manual covering...',       // Description
-    filePath: '/pdfs/os-practical-slips.pdf',             // Path in /public
-    downloadFilename: 'OS-Practical-Slips.pdf',           // Download filename
-    badge: 'OS Practical',                                // Badge text
-    category: 'Operating Systems',
-    pageCountText: '76 Pages • PDF',
+    filePath: '/pdfs/data-science-slips.pdf',             // Path in /public
+    downloadFilename: 'Data-Science-Practical-Slips.pdf', // Download filename
+    badge: 'Data Science',                                // Badge text
+    category: 'Data Science & Machine Learning',
+    pageCountText: '37 Pages • PDF',
     // ...
   },
 ];
@@ -158,11 +158,11 @@ Once pushed to GitHub, deploying to Vercel takes less than 2 minutes and runs 24
 
 ## ✅ Deployment & Verification Checklist
 
-- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and card for the Operating Systems Practical Slips.
-- [x] **Document (OS Slips):** Opens `/viewer/os-practical-slips` (and alias `/viewer/os-practical`), renders 76 pages smoothly, supports zoom, text selection, and search.
+- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and card for the Data Science Practical Slips.
+- [x] **Document (Data Science Slips):** Opens `/viewer/data-science-slips` (and alias `/viewer/data-science`), renders 37 pages smoothly, supports zoom, text selection, and search.
 - [x] **Text Selection:** Users can drag-select text on any page and copy it with `Cmd+C` / `Ctrl+C`.
-- [x] **Search Works:** Search toolbar indexes all 76 pages, displays match count, and jumps to highlighted matching terms.
-- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of `OS-Practical-Slips.pdf`.
+- [x] **Search Works:** Search toolbar indexes all 37 pages, displays match count, and jumps to highlighted matching terms.
+- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of `Data-Science-Practical-Slips.pdf`.
 - [x] **Page Jump:** Typing a page number and pressing Enter scrolls directly to that page.
 - [x] **Responsive Mobile Layout:** Clean layout on phones, tablets, and desktops.
 - [x] **Missing PDF Resilience:** Shows informative guide card if a file cannot be loaded.
