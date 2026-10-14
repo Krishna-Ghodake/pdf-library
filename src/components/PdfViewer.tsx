@@ -360,15 +360,27 @@ export const PdfViewer: React.FC<PdfViewerProps> = ({ documentItem }) => {
       <header className="pdf-toolbar">
         {/* Left Section: Back, Doc Switcher, Title */}
         <div className="pdf-toolbar-left">
-          <Link
-            href="/"
-            className="toolbar-btn"
-            title="Return to PDF Library"
-            aria-label="Back to Library"
-          >
-            <ArrowLeft size={16} />
-            <span className="hide-on-mobile">Library</span>
-          </Link>
+          {DOCUMENTS.length > 1 ? (
+            <Link
+              href="/"
+              className="toolbar-btn"
+              title="Return to PDF Library"
+              aria-label="Back to Library"
+            >
+              <ArrowLeft size={16} />
+              <span className="hide-on-mobile">Library</span>
+            </Link>
+          ) : (
+            <button
+              onClick={() => scrollToPage(1)}
+              className="toolbar-btn"
+              title="Jump to Page 1"
+              aria-label="First Page"
+            >
+              <RotateCcw size={15} />
+              <span className="hide-on-mobile">Page 1</span>
+            </button>
+          )}
 
           {/* Quick Switcher Dropdown / Document Title */}
           {DOCUMENTS.length > 1 ? (

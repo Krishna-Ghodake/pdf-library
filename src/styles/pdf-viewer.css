@@ -325,8 +325,13 @@
 }
 
 .textLayer span {
+  z-index: 2 !important;
   user-select: text !important;
   -webkit-user-select: text !important;
+  padding: 4px 25px 6px 15px !important;
+  margin-top: -4px !important;
+  margin-left: -15px !important;
+  box-sizing: content-box !important;
 }
 
 .textLayer ::selection {
@@ -340,12 +345,12 @@
 }
 
 .textLayer .endOfContent {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  user-select: none !important;
+  pointer-events: none !important;
   display: block;
-  position: absolute;
-  inset: 100% 0 0;
-  z-index: 0;
-  cursor: default;
-  user-select: none;
 }
 
 /* Search Highlights */
