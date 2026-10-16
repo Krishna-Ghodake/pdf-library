@@ -8,18 +8,18 @@ Hosted on Vercel with a single public URL (e.g. `your-pdf-library.vercel.app`), 
 
 ## 📁 Installed PDF Documents
 
-The Data Science Practical Slips PDF document is installed in `public/pdfs/`:
+The Artificial Intelligence Practical Slips PDF document is installed in `public/pdfs/`:
 
 | Document | Location | File Name | Details |
 | :--- | :--- | :--- | :--- |
-| **Data Science Practical Slips** | `public/pdfs/` | `data-science-slips.pdf` | **37 Pages** • Slips 4, 5, 6, 7, 11, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25 (Python programs) |
+| **Artificial Intelligence Practical Slips** | `public/pdfs/` | `ai-practical-slips.pdf` | **29 Pages** • Slips 1, 2, 3, 4, 7, 8, 9, 14, 15, 16, 17, 21, 22, 23, 25 (Python programs) |
 
 ```text
 Pdf viewer/
 ├── public/
 │   ├── pdfs/
-│   │   ├── data-science-slips.pdf   <-- Data Science Practical Slips (37 Pages)
-│   │   └── data-science.pdf         <-- Friendly alias
+│   │   ├── ai-practical-slips.pdf   <-- Artificial Intelligence Practical Slips (29 Pages)
+│   │   └── ai-practical.pdf         <-- Friendly alias
 │   ├── pdf.worker.min.mjs           <-- PDF.js Web Worker (configured)
 │   └── favicon.ico
 ├── src/
@@ -27,7 +27,7 @@ Pdf viewer/
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   ├── not-found.tsx
-│   │   ├── page.tsx                 <-- Homepage with card
+│   │   ├── page.tsx                 <-- Direct fullscreen PDF reader
 │   │   └── viewer/[id]/page.tsx     <-- Fullscreen reader
 │   ├── components/
 │   │   ├── DocumentCard.tsx
@@ -41,7 +41,7 @@ Pdf viewer/
 └── README.md
 ```
 
-> **Note:** Backward-compatible aliases (`data-science`, `os-practical-slips`, `os-practical`) are preserved in routing and documents config.
+> **Note:** Backward-compatible aliases (`ai-practical`, `data-science-slips`, `data-science`, `os-practical-slips`, `os-practical`) are preserved in routing and documents config.
 
 ---
 
@@ -57,15 +57,15 @@ To customize how documents are displayed:
 ```typescript
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'data-science-slips',
-    title: 'Data Science Practical Slips',                // Display Title
-    subtitle: 'Python Lab Programs • Slips 4, 5, 6...',    // Subtitle
+    id: 'ai-practical-slips',
+    title: 'Artificial Intelligence Practical Slips',     // Display Title
+    subtitle: 'Python Lab Programs • Slips 1, 2, 3...',   // Subtitle
     description: 'Complete lab manual covering...',       // Description
-    filePath: '/pdfs/data-science-slips.pdf',             // Path in /public
-    downloadFilename: 'Data-Science-Practical-Slips.pdf', // Download filename
-    badge: 'Data Science',                                // Badge text
-    category: 'Data Science & Machine Learning',
-    pageCountText: '37 Pages • PDF',
+    filePath: '/pdfs/ai-practical-slips.pdf',             // Path in /public
+    downloadFilename: 'AI-Practical-Slips.pdf',           // Download filename
+    badge: 'AI Practical',                                // Badge text
+    category: 'Artificial Intelligence',
+    pageCountText: '29 Pages • PDF',
     // ...
   },
 ];
@@ -158,11 +158,11 @@ Once pushed to GitHub, deploying to Vercel takes less than 2 minutes and runs 24
 
 ## ✅ Deployment & Verification Checklist
 
-- [x] **Homepage Loads:** Displays "PDF Library" header, subtitle, and card for the Data Science Practical Slips.
-- [x] **Document (Data Science Slips):** Opens `/viewer/data-science-slips` (and alias `/viewer/data-science`), renders 37 pages smoothly, supports zoom, text selection, and search.
-- [x] **Text Selection:** Users can drag-select text on any page and copy it with `Cmd+C` / `Ctrl+C`.
-- [x] **Search Works:** Search toolbar indexes all 37 pages, displays match count, and jumps to highlighted matching terms.
-- [x] **Downloads:** Clicking "Download PDF" from either the homepage or viewer initiates download of `Data-Science-Practical-Slips.pdf`.
+- [x] **Direct Reader Access:** Visiting the main link (`https://pdf-library-nine.vercel.app`) opens directly into the Artificial Intelligence Practical Slips on page 1 without landing pages.
+- [x] **Document (AI Slips):** Opens `/viewer/ai-practical-slips` (and alias `/viewer/ai-practical`), renders 29 pages smoothly, supports zoom, text selection, and search.
+- [x] **Text Selection:** Users can drag-select text (single word, single line, or code blocks) and copy it with `Cmd+C` / `Ctrl+C` with 100% precision without selecting lines below.
+- [x] **Search Works:** Search toolbar indexes all 29 pages, displays match count, and jumps to highlighted matching terms.
+- [x] **Downloads:** Clicking "Download PDF" from the viewer toolbar initiates download of `AI-Practical-Slips.pdf`.
 - [x] **Page Jump:** Typing a page number and pressing Enter scrolls directly to that page.
 - [x] **Responsive Mobile Layout:** Clean layout on phones, tablets, and desktops.
 - [x] **Missing PDF Resilience:** Shows informative guide card if a file cannot be loaded.

@@ -9,6 +9,8 @@ interface ViewerPageProps {
 
 export function generateStaticParams() {
   return [
+    { id: 'ai-practical-slips' },
+    { id: 'ai-practical' },
     { id: 'data-science-slips' },
     { id: 'data-science' },
     { id: 'os-practical-slips' },

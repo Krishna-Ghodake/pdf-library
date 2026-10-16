@@ -15,29 +15,32 @@ export interface DocumentItem {
 
 export const DOCUMENTS: DocumentItem[] = [
   {
-    id: 'data-science-slips',
-    title: 'Data Science Practical Slips',
-    subtitle: 'Python Lab Programs • Slips 4, 5, 6, 7, 11, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25',
+    id: 'ai-practical-slips',
+    title: 'Artificial Intelligence Practical Slips',
+    subtitle: 'Python Lab Programs • Slips 1, 2, 3, 4, 7, 8, 9, 14, 15, 16, 17, 21, 22, 23, 25',
     description:
-      'Complete Data Science practical solutions in Python covering Pandas, Matplotlib, Scikit-Learn (Logistic Regression, Linear Regression, Polynomial Regression, KNN, Random Forest, KMeans Clustering), Hierarchical Clustering (Dendrograms), Association Rule Mining (Apriori), Data Preprocessing, Feature Scaling, Outlier Detection, Venn Diagrams, and Treemaps.',
-    filePath: '/pdfs/data-science-slips.pdf',
-    downloadFilename: 'Data-Science-Practical-Slips.pdf',
-    badge: 'Data Science',
-    category: 'Data Science & Machine Learning',
-    pageCountText: '37 Pages • PDF',
+      'Complete Artificial Intelligence (AI) practical solutions in Python covering BFS (Monkey Banana, Water Jug, Graph traversal), A* Search (Shortest Path, 4-Puzzle), AO* Algorithm, Minimax & Alpha-Beta Pruning, Map Coloring (CSP Backtracking), N-Queens Problem, Hill Climbing, Propositional & Predicate Logic, Forward & Backward Chaining Inference, Expert Systems, Naive Bayes, Decision Trees, and K-Means Clustering.',
+    filePath: '/pdfs/ai-practical-slips.pdf',
+    downloadFilename: 'AI-Practical-Slips.pdf',
+    badge: 'AI Practical',
+    category: 'Artificial Intelligence',
+    pageCountText: '29 Pages • PDF',
     iconType: 'code',
     accentColor: '#2563eb',
     highlights: [
-      'Slips 4, 5, 6, 7, 11, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25',
-      'Machine Learning: Classification, Regression & Clustering',
-      'Data Preprocessing, Scaling & Outlier Detection',
-      'Visualizations: Heatmaps, Treemaps, Dendrograms & Venn',
+      'Slips 1, 2, 3, 4, 7, 8, 9, 14, 15, 16, 17, 21, 22, 23, 25',
+      'Search: BFS, A*, AO*, IDS, Hill Climbing',
+      'Game Playing: Minimax & Alpha-Beta Pruning, Tic-Tac-Toe',
+      'CSPs: Map Coloring & N-Queens Backtracking',
+      'Inference: Propositional Logic, Forward/Backward Chaining',
     ],
   },
 ];
 
 export function getDocumentById(id: string): DocumentItem | undefined {
   if (
+    id === 'ai-practical' ||
+    id === 'ai-practical-slips' ||
     id === 'data-science' ||
     id === 'data-science-slips' ||
     id === 'os-practical' ||
